@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alisha ❤️ Rajinder</title>
+<title>Alisha & Rajinder</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
@@ -11,17 +11,17 @@
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:#0b0b0b;
-  color:white;
+  background:linear-gradient(to bottom,#fff5f7,#fdfaf6);
+  color:#333;
   overflow-x:hidden;
 }
 
-/* ENTRY SCREEN */
+/* ENTRY */
 #entryScreen{
   position:fixed;
   width:100%;
   height:100%;
-  background:radial-gradient(circle,#111,#000);
+  background:linear-gradient(to bottom,#fff5f7,#fdfaf6);
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -32,31 +32,25 @@ body{
 
 #entryScreen h1{
   font-family:'Playfair Display';
-  font-size:2.2rem;
-  color:#d4af37;
-  letter-spacing:1px;
+  color:#e6a4b4;
+  font-size:2rem;
+  text-shadow:0 0 12px rgba(230,164,180,0.8);
 }
 
 .enter-btn{
-  margin-top:25px;
+  margin-top:20px;
   padding:12px 35px;
   border:none;
   border-radius:30px;
-  background:linear-gradient(45deg,#d4af37,#f5e6a7);
-  color:black;
+  background:linear-gradient(45deg,#f8d7da,#f3c5cf);
+  color:#333;
   font-weight:bold;
-  box-shadow:0 0 20px rgba(212,175,55,0.4);
+  box-shadow:0 0 15px rgba(230,164,180,0.4);
 }
 
 /* MAIN */
 #mainContent{
   display:none;
-  animation:fadeIn 1s ease;
-}
-
-@keyframes fadeIn{
-  from{opacity:0;}
-  to{opacity:1;}
 }
 
 /* HERO */
@@ -68,7 +62,7 @@ body{
   align-items:center;
   text-align:center;
   padding:20px;
-  background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.9)),
+  background:linear-gradient(rgba(255,255,255,0.6),rgba(255,255,255,0.8)),
   url('https://images.unsplash.com/photo-1519741497674-611481863552');
   background-size:cover;
   background-position:center;
@@ -76,22 +70,23 @@ body{
 
 .hero h1{
   font-family:'Playfair Display';
-  font-size:2.3rem;
-  color:#d4af37;
-  text-shadow:0 0 15px rgba(212,175,55,0.5);
+  font-size:2.4rem;
+  color:#e6a4b4;
+  text-shadow:0 0 15px rgba(230,164,180,0.9);
 }
 
 .hero p{
   margin-top:10px;
   font-size:1rem;
+  color:#555;
 }
 
 /* TIMER */
 .timer{
   margin-top:20px;
   font-size:1.3rem;
-  color:#f5e6a7;
-  letter-spacing:1px;
+  color:#e6a4b4;
+  text-shadow:0 0 10px rgba(230,164,180,0.7);
 }
 
 /* SECTION */
@@ -101,34 +96,34 @@ body{
 }
 
 .card{
-  background:#141414;
+  background:#ffffffcc;
   padding:25px;
   border-radius:20px;
-  border:1px solid rgba(212,175,55,0.4);
-  box-shadow:0 0 30px rgba(212,175,55,0.1);
+  border:1px solid rgba(230,164,180,0.3);
+  box-shadow:0 5px 20px rgba(0,0,0,0.05);
   max-width:90%;
   margin:auto;
 }
 
 .card h2{
-  color:#d4af37;
+  color:#e6a4b4;
 }
 
-/* SNOWFLAKES */
-.snow{
+/* PETALS */
+.petal{
   position:fixed;
   top:-10px;
-  width:6px;
-  height:6px;
-  background:radial-gradient(circle,#f5e6a7,#d4af37);
+  width:8px;
+  height:8px;
+  background:#f3c5cf;
   border-radius:50%;
-  opacity:0.8;
+  opacity:0.7;
   animation:fall linear infinite;
 }
 
 @keyframes fall{
   to{
-    transform:translateY(100vh) translateX(40px);
+    transform:translateY(100vh) translateX(30px);
   }
 }
 
@@ -137,7 +132,7 @@ footer{
   text-align:center;
   padding:25px;
   font-size:0.8rem;
-  color:#888;
+  color:#999;
 }
 </style>
 </head>
@@ -146,7 +141,7 @@ footer{
 
 <!-- ENTRY -->
 <div id="entryScreen">
-  <h1>Alisha ❤️ Rajinder</h1>
+  <h1>Alisha 💗 Rajinder</h1>
   <p>Ring Ceremony</p>
   <button class="enter-btn" onclick="enterSite()">💍 Save the Date</button>
 </div>
@@ -155,7 +150,7 @@ footer{
 <div id="mainContent">
 
 <div class="hero">
-  <h1>Alisha ❤️ Rajinder</h1>
+  <h1>Alisha 💗 Rajinder</h1>
   <p>18 April 2026 | 7 PM onwards</p>
   <div class="timer" id="countdown"></div>
 </div>
@@ -166,7 +161,7 @@ footer{
     <p><b>Best Western Merrion</b></p>
     <p>Allure Banquet</p>
     <p>B Block, Ranjit Avenue, Amritsar</p>
-    <a href="https://maps.app.goo.gl/VxLi1LGfHG9u6B4W6?g_st=aw" style="color:#d4af37;">View Map</a>
+    <a href="https://maps.app.goo.gl/VxLi1LGfHG9u6B4W6?g_st=aw" style="color:#e6a4b4;">View Map</a>
   </div>
 </div>
 
@@ -188,7 +183,6 @@ function enterSite(){
 
   const music = document.getElementById("bgMusic");
 
-  // guaranteed play after interaction
   document.body.addEventListener("click", function playOnce(){
     music.play();
     document.body.removeEventListener("click", playOnce);
@@ -211,15 +205,15 @@ setInterval(()=>{
   d+"d "+h+"h "+m+"m "+s+"s";
 },1000);
 
-// SNOW EFFECT
+// PETALS
 setInterval(()=>{
-  const snow=document.createElement("div");
-  snow.className="snow";
-  snow.style.left=Math.random()*100+"vw";
-  snow.style.animationDuration=(Math.random()*4+2)+"s";
-  document.body.appendChild(snow);
-  setTimeout(()=>snow.remove(),5000);
-},250);
+  const petal=document.createElement("div");
+  petal.className="petal";
+  petal.style.left=Math.random()*100+"vw";
+  petal.style.animationDuration=(Math.random()*4+2)+"s";
+  document.body.appendChild(petal);
+  setTimeout(()=>petal.remove(),5000);
+},300);
 </script>
 
 </body>
