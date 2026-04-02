@@ -5,47 +5,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alisha ❤️ Rajinder</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:#0d0d0d;
+  background:#0b0b0b;
   color:white;
   overflow-x:hidden;
 }
 
-/* ENTRY */
+/* ENTRY SCREEN */
 #entryScreen{
   position:fixed;
   width:100%;
   height:100%;
-  background:#0d0d0d;
+  background:radial-gradient(circle,#111,#000);
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   z-index:9999;
+  text-align:center;
 }
 
 #entryScreen h1{
   font-family:'Playfair Display';
+  font-size:2.2rem;
   color:#d4af37;
+  letter-spacing:1px;
 }
 
 .enter-btn{
-  margin-top:20px;
-  padding:12px 30px;
+  margin-top:25px;
+  padding:12px 35px;
   border:none;
   border-radius:30px;
-  background:#d4af37;
+  background:linear-gradient(45deg,#d4af37,#f5e6a7);
   color:black;
+  font-weight:bold;
+  box-shadow:0 0 20px rgba(212,175,55,0.4);
 }
 
 /* MAIN */
-#mainContent{display:none;}
+#mainContent{
+  display:none;
+  animation:fadeIn 1s ease;
+}
 
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+/* HERO */
 .hero{
   height:100vh;
   display:flex;
@@ -53,62 +67,77 @@ body{
   justify-content:center;
   align-items:center;
   text-align:center;
+  padding:20px;
   background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.9)),
   url('https://images.unsplash.com/photo-1519741497674-611481863552');
   background-size:cover;
-  color:white;
+  background-position:center;
 }
 
 .hero h1{
   font-family:'Playfair Display';
+  font-size:2.3rem;
   color:#d4af37;
+  text-shadow:0 0 15px rgba(212,175,55,0.5);
 }
 
-/* COUPLE */
-.couple-img{
-  width:120px;
-  animation:zoomWalk 4s ease forwards;
+.hero p{
+  margin-top:10px;
+  font-size:1rem;
 }
 
-@keyframes zoomWalk{
-  0%{transform:scale(0.3);opacity:0;}
-  30%{transform:scale(0.8);opacity:1;}
-  60%{transform:scale(1.5);}
-  100%{transform:scale(3);opacity:0;}
+/* TIMER */
+.timer{
+  margin-top:20px;
+  font-size:1.3rem;
+  color:#f5e6a7;
+  letter-spacing:1px;
 }
 
+/* SECTION */
 .section{
-  padding:30px;
+  padding:40px 20px;
   text-align:center;
 }
 
 .card{
-  background:#1a1a1a;
-  padding:20px;
-  border-radius:15px;
-  border:1px solid #d4af37;
+  background:#141414;
+  padding:25px;
+  border-radius:20px;
+  border:1px solid rgba(212,175,55,0.4);
+  box-shadow:0 0 30px rgba(212,175,55,0.1);
   max-width:90%;
   margin:auto;
 }
 
-.timer{
-  font-size:1.4rem;
+.card h2{
   color:#d4af37;
 }
 
-/* PARTICLES */
-.petal{
+/* SNOWFLAKES */
+.snow{
   position:fixed;
+  top:-10px;
   width:6px;
   height:6px;
-  background:#d4af37;
+  background:radial-gradient(circle,#f5e6a7,#d4af37);
   border-radius:50%;
-  top:-10px;
+  opacity:0.8;
   animation:fall linear infinite;
 }
 
 @keyframes fall{
-  to{transform:translateY(100vh);}
+  to{
+    transform:translateY(100vh) translateX(40px);
+  }
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:25px;
+  font-size:0.8rem;
+  color:#888;
 }
 </style>
 </head>
@@ -127,27 +156,27 @@ body{
 
 <div class="hero">
   <h1>Alisha ❤️ Rajinder</h1>
-  <img src="https://i.ibb.co/7QpKsCX/couple.png" class="couple-img">
   <p>18 April 2026 | 7 PM onwards</p>
-</div>
-
-<div class="section">
   <div class="timer" id="countdown"></div>
 </div>
 
 <div class="section">
   <div class="card">
-    <h2 style="color:#d4af37;">Venue</h2>
-    <p>Best Western Merrion</p>
+    <h2>Venue</h2>
+    <p><b>Best Western Merrion</b></p>
     <p>Allure Banquet</p>
     <p>B Block, Ranjit Avenue, Amritsar</p>
     <a href="https://maps.app.goo.gl/VxLi1LGfHG9u6B4W6?g_st=aw" style="color:#d4af37;">View Map</a>
   </div>
 </div>
 
+<footer>
+  Made with ❤️ for Alisha & Rajinder
+</footer>
+
 </div>
 
-<!-- YOUR OWN MUSIC -->
+<!-- MUSIC -->
 <audio id="bgMusic" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
@@ -157,12 +186,18 @@ function enterSite(){
   document.getElementById("entryScreen").style.display="none";
   document.getElementById("mainContent").style.display="block";
 
-  const music=document.getElementById("bgMusic");
-  music.play();
+  const music = document.getElementById("bgMusic");
+
+  // guaranteed play after interaction
+  document.body.addEventListener("click", function playOnce(){
+    music.play();
+    document.body.removeEventListener("click", playOnce);
+  });
 }
 
-// countdown
+// TIMER
 const eventDate=new Date("April 18, 2026 19:00:00").getTime();
+
 setInterval(()=>{
   const now=new Date().getTime();
   const gap=eventDate-now;
@@ -176,15 +211,15 @@ setInterval(()=>{
   d+"d "+h+"h "+m+"m "+s+"s";
 },1000);
 
-// particles
+// SNOW EFFECT
 setInterval(()=>{
-  const p=document.createElement("div");
-  p.className="petal";
-  p.style.left=Math.random()*100+"vw";
-  p.style.animationDuration=(Math.random()*3+2)+"s";
-  document.body.appendChild(p);
-  setTimeout(()=>p.remove(),5000);
-},300);
+  const snow=document.createElement("div");
+  snow.className="snow";
+  snow.style.left=Math.random()*100+"vw";
+  snow.style.animationDuration=(Math.random()*4+2)+"s";
+  document.body.appendChild(snow);
+  setTimeout(()=>snow.remove(),5000);
+},250);
 </script>
 
 </body>
