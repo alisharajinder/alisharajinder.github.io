@@ -115,17 +115,23 @@ body{
 /* 🦋 BUTTERFLY */
 .butterfly{
   position:absolute;
-  width:35px;
-  height:35px;
+  width:22px; /* smaller */
+  height:22px;
   background:url('butterfly.png') no-repeat center/contain;
   transform-origin:center;
-  animation:wing 0.25s infinite alternate;
+  pointer-events:none;
+
+  animation:wingFlap 0.18s infinite ease-in-out alternate;
 }
 
-/* WING FLAP (REAL FEEL) */
-@keyframes wing{
-  0%{ transform:scale(1) rotateY(0deg); }
-  100%{ transform:scale(1.05) rotateY(30deg); }
+/* REALISTIC WING FLAP */
+@keyframes wingFlap{
+  0%{
+    transform:scaleX(1) rotateZ(0deg);
+  }
+  100%{
+    transform:scaleX(0.6) rotateZ(5deg);
+  }
 }
 
 /* SCROLL */
@@ -241,7 +247,7 @@ function enterSite(){
   generateButterflies();
 }
 
-/* REALISTIC BUTTERFLIES */
+/* REALISTIC MOVEMENT */
 function generateButterflies(){
   const hero=document.getElementById("hero");
 
@@ -251,18 +257,24 @@ function generateButterflies(){
 
     let fromLeft=i<30;
 
-    b.style.left = fromLeft ? "-50px" : "100%";
+    b.style.left = fromLeft ? "-30px" : "100%";
     b.style.top = (Math.random()*60+20)+"%";
+
+    b.style.opacity = 0.4;
 
     let xMove = fromLeft ? 300 : -300;
 
     b.animate([
-      {transform:"translate(0,0)",opacity:0},
-      {transform:`translate(${xMove/2}px,-100px)`,opacity:1},
-      {transform:`translate(${xMove}px,0px)`},
-      {transform:`translate(${xMove}px,250px)`,opacity:0}
+      { transform:"translate(0,0) rotate(0deg)", opacity:0 },
+
+      { transform:`translate(${xMove/3}px,-80px) rotate(10deg)`, opacity:1 },
+
+      { transform:`translate(${xMove/1.5}px,30px) rotate(-10deg)` },
+
+      { transform:`translate(${xMove}px,220px) rotate(15deg)`, opacity:0 }
+
     ],{
-      duration:5000+Math.random()*3000,
+      duration:5000 + Math.random()*3000,
       iterations:Infinity,
       easing:"ease-in-out"
     });
