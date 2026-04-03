@@ -3,16 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alisha & Rajinder</title>
+<title>Alisha 💗 Rajinder</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:linear-gradient(to bottom,#fff5f7,#fdfaf6);
-  color:#333;
+  background:#fff5f7;
   overflow-x:hidden;
 }
 
@@ -21,72 +20,96 @@ body{
   position:fixed;
   width:100%;
   height:100%;
-  background:linear-gradient(to bottom,#fff5f7,#fdfaf6);
+  background:#fff5f7;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   z-index:9999;
-  text-align:center;
 }
 
 #entryScreen h1{
   font-family:'Playfair Display';
   color:#e6a4b4;
-  font-size:2rem;
-  text-shadow:0 0 12px rgba(230,164,180,0.8);
+  text-shadow:0 0 15px rgba(230,164,180,0.9);
 }
 
 .enter-btn{
   margin-top:20px;
-  padding:12px 35px;
+  padding:12px 30px;
   border:none;
   border-radius:30px;
-  background:linear-gradient(45deg,#f8d7da,#f3c5cf);
-  color:#333;
-  font-weight:bold;
-  box-shadow:0 0 15px rgba(230,164,180,0.4);
-}
-
-/* MAIN */
-#mainContent{
-  display:none;
+  background:#f3c5cf;
 }
 
 /* HERO */
 .hero{
   height:100vh;
+  position:relative;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
-  padding:20px;
-  background:linear-gradient(rgba(255,255,255,0.6),rgba(255,255,255,0.8)),
-  url('https://images.unsplash.com/photo-1519741497674-611481863552');
-  background-size:cover;
-  background-position:center;
+  color:white;
+  overflow:hidden;
 }
 
+/* CLEAR FULL IMAGE */
+.hero::before{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:url('bg.jpg') center/cover no-repeat;
+  z-index:-2;
+}
+
+/* BLUR BOTTOM 65% */
+.hero::after{
+  content:"";
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:65%;
+  background:url('bg.jpg') center/cover no-repeat;
+  filter:blur(8px);
+  z-index:-1;
+  opacity:0.95;
+
+  /* smooth fade */
+  mask-image: linear-gradient(to top, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to top, black 70%, transparent 100%);
+}
+
+/* TEXT */
 .hero h1{
   font-family:'Playfair Display';
-  font-size:2.4rem;
-  color:#e6a4b4;
-  text-shadow:0 0 15px rgba(230,164,180,0.9);
+  font-size:2.5rem;
+  color:#ffd1dc;
+  text-shadow:0 0 20px rgba(255,182,193,1);
 }
 
 .hero p{
   margin-top:10px;
-  font-size:1rem;
-  color:#555;
 }
 
 /* TIMER */
 .timer{
-  margin-top:20px;
-  font-size:1.3rem;
-  color:#e6a4b4;
-  text-shadow:0 0 10px rgba(230,164,180,0.7);
+  margin-top:15px;
+  font-size:1.2rem;
+}
+
+/* SCROLL */
+.scroll-down{
+  position:absolute;
+  bottom:20px;
+  animation:bounce 1.5s infinite;
+}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(10px);}
 }
 
 /* SECTION */
@@ -95,44 +118,33 @@ body{
   text-align:center;
 }
 
+/* GALLERY */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:20px;
+}
+
+.gallery img{
+  width:100%;
+  border-radius:15px;
+}
+
+/* CARD */
 .card{
-  background:#ffffffcc;
-  padding:25px;
-  border-radius:20px;
-  border:1px solid rgba(230,164,180,0.3);
-  box-shadow:0 5px 20px rgba(0,0,0,0.05);
-  max-width:90%;
-  margin:auto;
-}
-
-.card h2{
-  color:#e6a4b4;
-}
-
-/* PETALS */
-.petal{
-  position:fixed;
-  top:-10px;
-  width:8px;
-  height:8px;
-  background:#f3c5cf;
-  border-radius:50%;
-  opacity:0.7;
-  animation:fall linear infinite;
-}
-
-@keyframes fall{
-  to{
-    transform:translateY(100vh) translateX(30px);
-  }
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.05);
 }
 
 /* FOOTER */
 footer{
   text-align:center;
-  padding:25px;
+  padding:20px;
   font-size:0.8rem;
-  color:#999;
+  color:#777;
 }
 </style>
 </head>
@@ -142,26 +154,38 @@ footer{
 <!-- ENTRY -->
 <div id="entryScreen">
   <h1>Alisha 💗 Rajinder</h1>
-  <p>Ring Ceremony</p>
   <button class="enter-btn" onclick="enterSite()">💍 Save the Date</button>
 </div>
 
 <!-- MAIN -->
-<div id="mainContent">
+<div id="mainContent" style="display:none;">
 
 <div class="hero">
   <h1>Alisha 💗 Rajinder</h1>
   <p>18 April 2026 | 7 PM onwards</p>
   <div class="timer" id="countdown"></div>
+  <div class="scroll-down">⬇ Scroll Down ⬇</div>
 </div>
 
+<!-- COUPLE -->
+<div class="section">
+  <h2 style="color:#e6a4b4;">Our Moments 💗</h2>
+  <div class="gallery">
+    <img src="photo1.jpg">
+    <img src="photo2.jpg">
+    <img src="photo3.jpg">
+    <img src="photo4.jpg">
+  </div>
+</div>
+
+<!-- VENUE -->
 <div class="section">
   <div class="card">
-    <h2>Venue</h2>
+    <h2 style="color:#e6a4b4;">Venue</h2>
     <p><b>Best Western Merrion</b></p>
     <p>Allure Banquet</p>
     <p>B Block, Ranjit Avenue, Amritsar</p>
-    <a href="https://maps.app.goo.gl/VxLi1LGfHG9u6B4W6?g_st=aw" style="color:#e6a4b4;">View Map</a>
+    <a href="https://maps.app.goo.gl/VxLi1LGfHG9u6B4W6?g_st=aw">View Map</a>
   </div>
 </div>
 
@@ -181,11 +205,11 @@ function enterSite(){
   document.getElementById("entryScreen").style.display="none";
   document.getElementById("mainContent").style.display="block";
 
-  const music = document.getElementById("bgMusic");
+  const music=document.getElementById("bgMusic");
 
-  document.body.addEventListener("click", function playOnce(){
+  document.body.addEventListener("click",function playOnce(){
     music.play();
-    document.body.removeEventListener("click", playOnce);
+    document.body.removeEventListener("click",playOnce);
   });
 }
 
@@ -204,16 +228,6 @@ setInterval(()=>{
   document.getElementById("countdown").innerHTML=
   d+"d "+h+"h "+m+"m "+s+"s";
 },1000);
-
-// PETALS
-setInterval(()=>{
-  const petal=document.createElement("div");
-  petal.className="petal";
-  petal.style.left=Math.random()*100+"vw";
-  petal.style.animationDuration=(Math.random()*4+2)+"s";
-  document.body.appendChild(petal);
-  setTimeout(()=>petal.remove(),5000);
-},300);
 </script>
 
 </body>
