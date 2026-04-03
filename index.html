@@ -11,35 +11,77 @@
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:#fff5f7;
   overflow-x:hidden;
 }
 
-/* ENTRY */
+/* CINEMATIC ENTRY */
 #entryScreen{
   position:fixed;
   width:100%;
   height:100%;
-  background:#fff5f7;
+  overflow:hidden;
   display:flex;
-  flex-direction:column;
   justify-content:center;
   align-items:center;
+  flex-direction:column;
   z-index:9999;
+  color:white;
 }
 
-#entryScreen h1{
+/* ZOOM BACKGROUND */
+#entryScreen::before{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:url('bg.jpg') center/cover no-repeat;
+  animation:zoomBg 8s ease forwards;
+  z-index:-2;
+}
+
+/* DARK OVERLAY */
+#entryScreen::after{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  z-index:-1;
+}
+
+@keyframes zoomBg{
+  from{transform:scale(1);}
+  to{transform:scale(1.2);}
+}
+
+/* TEXT */
+.save-text{
   font-family:'Playfair Display';
-  color:#e6a4b4;
-  text-shadow:0 0 15px rgba(230,164,180,0.9);
+  font-size:2.5rem;
+  opacity:0;
+  animation:fadeIn 3s ease forwards;
 }
 
+@keyframes fadeIn{
+  0%{opacity:0;}
+  100%{opacity:1;}
+}
+
+/* BUTTON */
 .enter-btn{
   margin-top:20px;
   padding:12px 30px;
   border:none;
   border-radius:30px;
   background:#f3c5cf;
+  color:black;
+  opacity:0;
+  animation:fadeIn 4s ease forwards;
+}
+
+/* MAIN */
+#mainContent{
+  display:none;
 }
 
 /* HERO */
@@ -47,15 +89,14 @@ body{
   height:100vh;
   position:relative;
   display:flex;
-  flex-direction:column;
   justify-content:center;
   align-items:center;
+  flex-direction:column;
   text-align:center;
   color:white;
-  overflow:hidden;
 }
 
-/* CLEAR IMAGE */
+/* BG */
 .hero::before{
   content:"";
   position:absolute;
@@ -65,7 +106,6 @@ body{
   z-index:-2;
 }
 
-/* BLUR BOTTOM 65% */
 .hero::after{
   content:"";
   position:absolute;
@@ -75,10 +115,7 @@ body{
   background:url('bg.jpg') center/cover no-repeat;
   filter:blur(8px);
   z-index:-1;
-  opacity:0.95;
-
-  mask-image: linear-gradient(to top, black 70%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to top, black 70%, transparent 100%);
+  opacity:0.9;
 }
 
 /* TEXT */
@@ -86,52 +123,33 @@ body{
   font-family:'Playfair Display';
   font-size:2.5rem;
   color:#ffd1dc;
-  text-shadow:0 0 20px rgba(255,182,193,1);
-}
-
-.hero p{
-  margin-top:10px;
+  text-shadow:0 0 20px pink;
 }
 
 /* TIMER */
 .timer{
   margin-top:15px;
-  font-size:1.2rem;
 }
 
 /* SCROLL BUTTON */
 .scroll-down{
   position:absolute;
-  bottom:70px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:5px;
-  color:#fff;
-  font-size:0.9rem;
-  z-index:10;
+  bottom:80px;
+  cursor:pointer;
 }
 
 .scroll-btn{
   width:45px;
   height:45px;
   border-radius:50%;
-  background:rgba(255,182,193,0.25);
-  border:1px solid rgba(255,182,193,0.6);
+  background:pink;
   display:flex;
   justify-content:center;
   align-items:center;
-  backdrop-filter:blur(6px);
-  box-shadow:0 0 15px rgba(255,182,193,0.6);
   animation:bounce 1.5s infinite;
 }
 
-.scroll-btn span{
-  font-size:18px;
-}
-
 @keyframes bounce{
-  0%,100%{transform:translateY(0);}
   50%{transform:translateY(10px);}
 }
 
@@ -141,12 +159,10 @@ body{
   text-align:center;
 }
 
-/* GALLERY */
 .gallery{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:10px;
-  margin-top:20px;
 }
 
 .gallery img{
@@ -154,20 +170,10 @@ body{
   border-radius:15px;
 }
 
-/* CARD */
 .card{
   background:white;
   padding:20px;
   border-radius:15px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.05);
-}
-
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:20px;
-  font-size:0.8rem;
-  color:#777;
 }
 </style>
 </head>
@@ -176,58 +182,50 @@ footer{
 
 <!-- ENTRY -->
 <div id="entryScreen">
-  <h1>Alisha 💗 Rajinder</h1>
-  <button class="enter-btn" onclick="enterSite()">💍 Save the Date</button>
+  <div class="save-text">Save the Date</div>
+  <button class="enter-btn" onclick="enterSite()">Enter</button>
 </div>
 
 <!-- MAIN -->
-<div id="mainContent" style="display:none;">
+<div id="mainContent">
 
 <div class="hero">
   <h1>Alisha 💗 Rajinder</h1>
   <p>18 April 2026 | 7 PM onwards</p>
   <div class="timer" id="countdown"></div>
 
-  <div class="scroll-down">
-    <div class="scroll-btn">
-      <span>↓</span>
-    </div>
-    <div>Scroll</div>
+  <div class="scroll-down" onclick="scrollToSection()">
+    <div class="scroll-btn">↓</div>
   </div>
 </div>
 
-<!-- COUPLE -->
-<div class="section">
+<div class="section" id="nextSection">
   <h2 style="color:#e6a4b4;">Our Moments 💗</h2>
-
   <div class="gallery">
-    <a href="photo1.jpg" target="_blank"><img src="photo1.jpg"></a>
-    <a href="photo2.jpg" target="_blank"><img src="photo2.jpg"></a>
-    <a href="photo3.jpg" target="_blank"><img src="photo3.jpg"></a>
-    <a href="photo4.jpg" target="_blank"><img src="photo4.jpg"></a>
+    <img src="photo1.jpg">
+    <img src="photo2.jpg">
+    <img src="photo3.jpg">
+    <img src="photo4.jpg">
   </div>
 </div>
 
-<!-- VENUE -->
 <div class="section">
   <div class="card">
     <h2 style="color:#e6a4b4;">Venue</h2>
     <p><b>Best Western Merrion</b></p>
     <p>Allure Banquet</p>
     <p>B Block, Ranjit Avenue, Amritsar</p>
-    <a href="https://maps.app.goo.gl/VxLi1LGfHG9u6B4W6?g_st=aw">View Map</a>
   </div>
 </div>
 
-<footer>
+<footer style="text-align:center;padding:20px;">
   Made with ❤️ for Alisha & Rajinder
 </footer>
 
 </div>
 
-<!-- MUSIC -->
 <audio id="bgMusic" loop>
-  <source src="music.mp3" type="audio/mpeg">
+  <source src="music.mp3">
 </audio>
 
 <script>
@@ -236,16 +234,17 @@ function enterSite(){
   document.getElementById("mainContent").style.display="block";
 
   const music=document.getElementById("bgMusic");
-
   document.body.addEventListener("click",function playOnce(){
     music.play();
     document.body.removeEventListener("click",playOnce);
   });
 }
 
-// TIMER
-const eventDate=new Date("April 18, 2026 19:00:00").getTime();
+function scrollToSection(){
+  document.getElementById("nextSection").scrollIntoView({behavior:"smooth"});
+}
 
+const eventDate=new Date("April 18, 2026 19:00:00").getTime();
 setInterval(()=>{
   const now=new Date().getTime();
   const gap=eventDate-now;
