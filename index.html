@@ -112,21 +112,20 @@ body{
   text-shadow:0 0 20px pink;
 }
 
-/* BUTTERFLIES */
+/* 🦋 BUTTERFLY */
 .butterfly{
   position:absolute;
-  width:18px;
-  height:18px;
-  background:radial-gradient(circle,pink,#ff69b4);
-  border-radius:50%;
-  opacity:0.8;
-  animation:flap 0.4s infinite alternate;
+  width:35px;
+  height:35px;
+  background:url('butterfly.png') no-repeat center/contain;
+  transform-origin:center;
+  animation:wing 0.25s infinite alternate;
 }
 
-/* wings illusion */
-@keyframes flap{
-  from{transform:scaleX(1);}
-  to{transform:scaleX(0.6);}
+/* WING FLAP (REAL FEEL) */
+@keyframes wing{
+  0%{ transform:scale(1) rotateY(0deg); }
+  100%{ transform:scale(1.05) rotateY(30deg); }
 }
 
 /* SCROLL */
@@ -242,7 +241,7 @@ function enterSite(){
   generateButterflies();
 }
 
-/* BUTTERFLY GENERATOR */
+/* REALISTIC BUTTERFLIES */
 function generateButterflies(){
   const hero=document.getElementById("hero");
 
@@ -252,19 +251,20 @@ function generateButterflies(){
 
     let fromLeft=i<30;
 
-    b.style.left = fromLeft ? "0%" : "100%";
+    b.style.left = fromLeft ? "-50px" : "100%";
     b.style.top = (Math.random()*60+20)+"%";
 
-    let xMove = fromLeft ? 200 : -200;
+    let xMove = fromLeft ? 300 : -300;
 
     b.animate([
       {transform:"translate(0,0)",opacity:0},
-      {transform:`translate(${xMove/2}px,-80px)`,opacity:1},
+      {transform:`translate(${xMove/2}px,-100px)`,opacity:1},
       {transform:`translate(${xMove}px,0px)`},
-      {transform:`translate(${xMove}px,200px)`,opacity:0}
+      {transform:`translate(${xMove}px,250px)`,opacity:0}
     ],{
       duration:5000+Math.random()*3000,
-      iterations:Infinity
+      iterations:Infinity,
+      easing:"ease-in-out"
     });
 
     hero.appendChild(b);
