@@ -25,7 +25,6 @@ body{
   flex-direction:column;
   color:white;
   z-index:9999;
-  overflow:hidden;
 }
 
 #entryScreen::before{
@@ -55,7 +54,6 @@ body{
 .save-text{
   font-family:'Playfair Display';
   font-size:2.5rem;
-  animation:fadeIn 3s ease forwards;
 }
 
 .enter-btn{
@@ -64,11 +62,6 @@ body{
   border:none;
   border-radius:30px;
   background:#f3c5cf;
-}
-
-@keyframes fadeIn{
-  from{opacity:0;}
-  to{opacity:1;}
 }
 
 /* MAIN */
@@ -122,32 +115,18 @@ body{
 /* BUTTERFLIES */
 .butterfly{
   position:absolute;
-  font-size:22px;
-  opacity:0;
+  width:18px;
+  height:18px;
+  background:radial-gradient(circle,pink,#ff69b4);
+  border-radius:50%;
+  opacity:0.8;
+  animation:flap 0.4s infinite alternate;
 }
 
-.left{
-  left:5%;
-  animation:flyLeft 5s infinite;
-}
-
-.right{
-  right:5%;
-  animation:flyRight 5s infinite;
-}
-
-@keyframes flyLeft{
-  0%{transform:translateX(0) translateY(0); opacity:0;}
-  30%{transform:translateX(150px) translateY(-40px); opacity:1;}
-  60%{transform:translateX(250px) translateY(0);}
-  100%{transform:translateX(250px) translateY(200px); opacity:0;}
-}
-
-@keyframes flyRight{
-  0%{transform:translateX(0) translateY(0); opacity:0;}
-  30%{transform:translateX(-150px) translateY(-40px); opacity:1;}
-  60%{transform:translateX(-250px) translateY(0);}
-  100%{transform:translateX(-250px) translateY(200px); opacity:0;}
+/* wings illusion */
+@keyframes flap{
+  from{transform:scaleX(1);}
+  to{transform:scaleX(0.6);}
 }
 
 /* SCROLL */
@@ -208,11 +187,7 @@ body{
 <!-- MAIN -->
 <div id="mainContent">
 
-<div class="hero">
-
-  <!-- BUTTERFLIES -->
-  <div class="butterfly left">🦋</div>
-  <div class="butterfly right">🦋</div>
+<div class="hero" id="hero">
 
   <h1>Alisha 💗 Rajinder</h1>
   <p>18 April 2026 | 7 PM onwards</p>
@@ -263,12 +238,45 @@ function enterSite(){
     music.play();
     document.body.removeEventListener("click",playOnce);
   });
+
+  generateButterflies();
 }
 
+/* BUTTERFLY GENERATOR */
+function generateButterflies(){
+  const hero=document.getElementById("hero");
+
+  for(let i=0;i<60;i++){
+    const b=document.createElement("div");
+    b.className="butterfly";
+
+    let fromLeft=i<30;
+
+    b.style.left = fromLeft ? "0%" : "100%";
+    b.style.top = (Math.random()*60+20)+"%";
+
+    let xMove = fromLeft ? 200 : -200;
+
+    b.animate([
+      {transform:"translate(0,0)",opacity:0},
+      {transform:`translate(${xMove/2}px,-80px)`,opacity:1},
+      {transform:`translate(${xMove}px,0px)`},
+      {transform:`translate(${xMove}px,200px)`,opacity:0}
+    ],{
+      duration:5000+Math.random()*3000,
+      iterations:Infinity
+    });
+
+    hero.appendChild(b);
+  }
+}
+
+/* SCROLL */
 function scrollToSection(){
   document.getElementById("nextSection").scrollIntoView({behavior:"smooth"});
 }
 
+/* TIMER */
 const eventDate=new Date("April 18, 2026 19:00:00").getTime();
 setInterval(()=>{
   const now=new Date().getTime();
