@@ -3,76 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Alisha 💗 Rajinder</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap" rel="stylesheet">
 
 <style>
-html,body{
+body{
   margin:0;
-  padding:0;
-  overflow-x:hidden;
-  scroll-behavior:smooth;
   font-family:'Poppins',sans-serif;
+  overflow-x:hidden;
 }
 
-/* ===== ENTRY SCREEN ===== */
-#entryScreen{
-  position:fixed;
-  width:100%;
-  height:100%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  color:white;
-  z-index:9999;
-}
-
-#entryScreen::before{
-  content:"";
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:url('bg.jpg') center/cover no-repeat;
-  animation:zoomBg 8s ease forwards;
-  z-index:-2;
-}
-
-#entryScreen::after{
-  content:"";
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.4);
-  z-index:-1;
-}
-
-@keyframes zoomBg{
-  to{transform:scale(1.2);}
-}
-
-.save-text{
-  font-family:'Playfair Display';
-  font-size:2.5rem;
-  text-shadow:0 0 20px pink;
-}
-
-.enter-btn{
-  margin-top:20px;
-  padding:12px 30px;
-  border:none;
-  border-radius:30px;
-  background:#ffc0cb;
-  font-weight:bold;
-}
-
-/* ===== MAIN ===== */
-#mainContent{
-  display:none;
-}
-
-/* HERO */
+/* ===== HERO ===== */
 .hero{
   height:100vh;
   display:flex;
@@ -101,11 +44,13 @@ html,body{
   height:65%;
   background:url('bg.jpg') center/cover no-repeat;
   filter:blur(8px);
+  opacity:0.9;
   z-index:-1;
 }
 
 .hero h1{
   font-family:'Playfair Display';
+  font-size:2.5rem;
   color:#ffd1dc;
   text-shadow:0 0 20px pink;
 }
@@ -113,7 +58,7 @@ html,body{
 /* SCROLL BUTTON */
 .scroll-down{
   position:absolute;
-  bottom:80px;
+  bottom:90px;
   cursor:pointer;
 }
 
@@ -151,57 +96,61 @@ html,body{
   border-radius:15px;
 }
 
-/* ===== VENUE (YOUR FAVORITE STYLE) ===== */
+/* ===== VENUE (LEFT ALIGNED PREMIUM) ===== */
 .venue-section{
   padding:60px 20px;
-  text-align:center;
+  text-align:left;
 }
 
 .venue-title{
   color:#e6a4b4;
   font-size:2rem;
   margin-bottom:30px;
+  margin-left:10px;
 }
 
-/* CARD */
+/* CARD POSITION LEFT */
 .venue-card{
   position:relative;
-  background:linear-gradient(135deg,#fff0f5,#ffe4ec);
+  background:#fff0f5;
   border-radius:25px;
   padding:30px 20px;
   max-width:320px;
-  margin:auto;
 
-  box-shadow:
-    0 10px 30px rgba(255,182,193,0.3),
-    inset 0 0 20px rgba(255,255,255,0.6);
+  margin-left:10px; /* 👈 LEFT SIDE */
 
   overflow:hidden;
 }
 
-/* GLOW */
-.venue-glow{
+/* ROTATING BORDER */
+.venue-card::before{
+  content:"";
   position:absolute;
-  top:-50%;
-  left:-50%;
-  width:200%;
-  height:200%;
+  inset:-2px;
+  border-radius:25px;
   background:conic-gradient(
-    transparent,
-    rgba(255,182,193,0.6),
-    transparent 30%
+    #ffb6c1,
+    #ffc0cb,
+    #ff69b4,
+    #ffc0cb,
+    #ffb6c1
   );
-  animation:rotateGlow 6s linear infinite;
+  animation:rotateBorder 5s linear infinite;
+  z-index:-1;
 }
 
-@keyframes rotateGlow{
+/* INNER CLEAN */
+.venue-card::after{
+  content:"";
+  position:absolute;
+  inset:3px;
+  background:#fff0f5;
+  border-radius:20px;
+  z-index:-1;
+}
+
+@keyframes rotateBorder{
   100%{transform:rotate(360deg);}
-}
-
-.venue-card h3,
-.venue-card p{
-  position:relative;
-  z-index:1;
 }
 
 /* BUTTON */
@@ -218,8 +167,6 @@ html,body{
 
   box-shadow:0 5px 15px rgba(255,105,180,0.4);
   transition:0.3s;
-  position:relative;
-  z-index:1;
 }
 
 .map-btn:hover{
@@ -241,36 +188,14 @@ footer{
   text-align:center;
   padding:20px;
 }
-
-/* BUTTERFLIES (light, not heavy) */
-.butterfly{
-  position:absolute;
-  width:18px;
-  height:18px;
-  background:url('butterfly.png') center/contain no-repeat;
-  animation:wing 0.2s infinite alternate;
-  opacity:0.4;
-}
-
-@keyframes wing{
-  from{transform:scaleX(1);}
-  to{transform:scaleX(0.6);}
-}
 </style>
 </head>
 
 <body>
 
-<!-- ENTRY -->
-<div id="entryScreen">
-  <div class="save-text">Save the Date</div>
-  <button class="enter-btn" onclick="enterSite()">Enter</button>
-</div>
+<!-- HERO -->
+<div class="hero">
 
-<!-- MAIN -->
-<div id="mainContent">
-
-<div class="hero" id="hero">
   <h1>Alisha 💗 Rajinder</h1>
   <p>18 April 2026 | 7 PM onwards</p>
   <div id="countdown"></div>
@@ -278,10 +203,13 @@ footer{
   <div class="scroll-down" onclick="scrollToSection()">
     <div class="scroll-btn">↓</div>
   </div>
+
 </div>
 
+<!-- GALLERY -->
 <div class="section" id="nextSection">
   <h2 style="color:#e6a4b4;">Our Moments 💗</h2>
+
   <div class="gallery">
     <img src="photo1.jpg">
     <img src="photo2.jpg">
@@ -292,10 +220,10 @@ footer{
 
 <!-- VENUE -->
 <div class="venue-section">
+
   <h2 class="venue-title">Venue</h2>
 
   <div class="venue-card">
-    <div class="venue-glow"></div>
 
     <h3>Best Western Merrion</h3>
     <p>Allure Banquet</p>
@@ -304,14 +232,15 @@ footer{
     <a href="https://maps.app.goo.gl/VxLi1LGfHG9u6B4W6?g_st=aw" target="_blank" class="map-btn">
       🎢 Ride to Venue
     </a>
+
   </div>
+
 </div>
 
+<!-- FOOTER -->
 <footer>
   Made with ❤️ for Alisha & Rajinder
 </footer>
-
-</div>
 
 <!-- MUSIC -->
 <audio id="bgMusic" loop>
@@ -319,40 +248,16 @@ footer{
 </audio>
 
 <script>
-function enterSite(){
-  document.getElementById("entryScreen").style.display="none";
-  document.getElementById("mainContent").style.display="block";
-
+/* MUSIC */
+document.body.addEventListener("click", function(){
   document.getElementById("bgMusic").play();
-  generateButterflies();
-}
+},{ once:true });
 
-/* FIXED BUTTERFLIES (no layout shift) */
-function generateButterflies(){
-  const hero=document.getElementById("hero");
-
-  for(let i=0;i<20;i++){
-    const b=document.createElement("div");
-    b.className="butterfly";
-
-    b.style.left=Math.random()*100+"%";
-    b.style.top=Math.random()*100+"%";
-
-    b.animate([
-      {transform:"translate(0,0)"},
-      {transform:"translate(80px,-60px)"},
-      {transform:"translate(120px,120px)"}
-    ],{
-      duration:5000+Math.random()*2000,
-      iterations:Infinity
-    });
-
-    hero.appendChild(b);
-  }
-}
-
+/* SCROLL */
 function scrollToSection(){
-  document.getElementById("nextSection").scrollIntoView({behavior:"smooth"});
+  document.getElementById("nextSection").scrollIntoView({
+    behavior:"smooth"
+  });
 }
 
 /* TIMER */
@@ -369,6 +274,7 @@ setInterval(()=>{
 
   document.getElementById("countdown").innerHTML=
   d+"d "+h+"h "+m+"m "+s+"s";
+
 },1000);
 </script>
 
