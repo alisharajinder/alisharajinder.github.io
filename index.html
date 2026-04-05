@@ -15,7 +15,7 @@ body{
   overflow-x:hidden;
 }
 
-/* ===== ENTRY ===== */
+/* ENTRY */
 #entryScreen{
   position:fixed;
   width:100%;
@@ -124,16 +124,22 @@ body{
   50%{transform:translateY(10px);}
 }
 
-/* GALLERY */
+/* SECTION (FIXED SPACING) */
 .section{
-  padding:50px 20px;
+  padding:30px 20px 10px;
   text-align:center;
 }
 
+.section h2{
+  margin-bottom:15px;
+}
+
+/* GALLERY */
 .gallery{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:10px;
+  margin-bottom:0;
 }
 
 .gallery img{
@@ -141,9 +147,9 @@ body{
   border-radius:15px;
 }
 
-/* ===== VENUE ===== */
+/* VENUE (FIXED GAP) */
 .venue-section{
-  padding:60px 20px;
+  padding:30px 20px;
   text-align:left;
 }
 
@@ -151,8 +157,10 @@ body{
   color:#e6a4b4;
   font-size:2rem;
   margin-left:10px;
+  margin-top:0;
 }
 
+/* CARD */
 .venue-card{
   position:relative;
   background:#fff0f5;
@@ -163,6 +171,7 @@ body{
   overflow:hidden;
 }
 
+/* BORDER */
 .venue-card::before{
   content:"";
   position:absolute;
@@ -202,7 +211,7 @@ footer{
   padding:20px;
 }
 
-/* ===== BUTTERFLY ===== */
+/* BUTTERFLY */
 .butterfly{
   position:absolute;
   background:url('butterfly.png') center/contain no-repeat;
@@ -240,6 +249,7 @@ footer{
 
 <div class="section" id="nextSection">
   <h2 style="color:#e6a4b4;">Our Moments 💗</h2>
+
   <div class="gallery">
     <img src="photo1.jpg">
     <img src="photo2.jpg">
@@ -282,12 +292,10 @@ function enterSite(){
   generateButterflies();
 }
 
-/* 🦋 BUTTERFLIES */
 function generateButterflies(){
   const hero = document.getElementById("hero");
 
   for(let i=0;i<70;i++){
-
     const b = document.createElement("div");
     b.className="butterfly";
 
@@ -297,12 +305,7 @@ function generateButterflies(){
 
     b.style.opacity = 0.3 + Math.random()*0.4;
 
-    if(i < 35){
-      b.style.left = "-30px";
-    }else{
-      b.style.left = "100%";
-    }
-
+    b.style.left = (i<35) ? "-30px" : "100%";
     b.style.top = Math.random()*80 + "%";
 
     b.animate([
@@ -311,22 +314,19 @@ function generateButterflies(){
       { transform:`translate(${(Math.random()*200 - 100)}px, 200px)` }
     ],{
       duration:5000 + Math.random()*3000,
-      iterations:Infinity,
-      easing:"ease-in-out"
+      iterations:Infinity
     });
 
     hero.appendChild(b);
   }
 }
 
-/* SCROLL */
 function scrollToSection(){
   document.getElementById("nextSection").scrollIntoView({
     behavior:"smooth"
   });
 }
 
-/* TIMER */
 const eventDate=new Date("April 18, 2026 19:00:00").getTime();
 
 setInterval(()=>{
